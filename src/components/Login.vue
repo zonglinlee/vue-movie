@@ -101,7 +101,6 @@ export default {
               userName: this.userName
             });
             //记录cookie信息到document.cookie，30天过期
-            console.log(data.token);
             document.cookie = `token=${data.token};max-age=${30 *
               24 *
               60 *

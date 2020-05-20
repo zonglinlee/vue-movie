@@ -14,7 +14,7 @@
         </template>
         <div class="name" @click.stop="editUserName">
           <template v-if="defaultName">
-            {{ userName }}
+            {{ userInfo }}
             <i class="iconfont icon-bianji"></i>
           </template>
           <template v-else>
@@ -99,7 +99,7 @@
               </section>
               <div class="time">{{ comment.date }}</div>
             </section>
-            <div class="delete" @click="deleteComment(comment.id, userName, index, $event)">删除</div>
+            <div class="delete" @click="deleteComment(comment.id, userInfo, index, $event)">删除</div>
           </li>
         </ul>
       </section>
@@ -135,19 +135,14 @@ export default {
       scroll: "",
       defaultName: true,
       userNameModel: "",
-      userName: "",
       baseUrl: url + "/images/",
       avator: ""
     };
   },
   computed: {
-    ...mapState(["meCommentDatas"])
+    ...mapState(["meCommentDatas","userInfo"])
   },
   mounted() {
-    this.userName = localStorage.user;
-    if (!this.userName || this.userName === "") {
-      this.$router.push("/login");
-    }
     this.initData();
   },
   watch: {
@@ -167,10 +162,7 @@ export default {
     // 初始化数据
     async initData() {
       this.loading = true;
-      if (localStorage.user === null) {
-        this.$router.push({ path: "/login" });
-      }
-      let userName = this.userName;
+      let userName = this.userInfo;
       await meComment(userName)
         .then(res => {
           let data = res.data;
@@ -312,7 +304,7 @@ export default {
             }
             reader.onload = function(e) {
               let base64 = e.target.result;
-              uploadAvator(_that.userName, base64)
+              uploadAvator(_that.userInfo, base64)
                 .then(data => {
                   _that.$toast({
                     icon: "success",
@@ -341,12 +333,12 @@ export default {
     // 修改用户名
     editUserName() {
       this.defaultName = false;
-      this.userNameModel = this.userName;
+      this.userNameModel = this.userInfo;
     },
     // 提交修改用户名操作
     submitEditName() {
       var modelData = this.userNameModel;
-      if (modelData == this.userName) {
+      if (modelData == this.userInfo) {
         this.$toast({
           icon: "fail",
           message: "请修改名称！"
@@ -354,7 +346,7 @@ export default {
         this.defaultName = true;
         return;
       }
-      editNameData(this.userName, modelData)
+      editNameData(this.userInfo, modelData)
         .then(res => {
           this.$toast({
             icon: "success",
@@ -366,7 +358,7 @@ export default {
             60 *
             1000}`;
           localStorage.setItem("user", modelData);
-          this.userName = modelData;
+          this.$store.dispatch('createUser',{userName:modelData})
           this.defaultName = true;
         })
         .catch(e => {

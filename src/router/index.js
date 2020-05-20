@@ -94,7 +94,7 @@ export default new Router({
       component: Me,
       meta: {
         index: 2,
-
+        requireAuth: true,
       },
     },
   ],
