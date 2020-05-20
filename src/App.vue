@@ -1,7 +1,7 @@
 <template>
   <div id="video">
     <transition :name="transitionName">
-      <keep-alive exclude="me,login">
+      <keep-alive exclude="me,login,detail">
         <router-view
           class="child-view"
           :class="[isReady ? 'transition' : '']"

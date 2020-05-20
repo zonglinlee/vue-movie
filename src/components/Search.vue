@@ -44,7 +44,6 @@ export default {
       baseUrl: url + '/images/'
     };
   },
-  computed: {},
   directives: {
     focus: {
       inserted: function(el) {
@@ -61,7 +60,6 @@ export default {
       }
     }
   },
-  created() {},
   methods: {
     searchResult() {
       if (this.search != '') {

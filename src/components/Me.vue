@@ -357,7 +357,9 @@ export default {
             60 *
             60 *
             1000}`;
+          //修改用户名后会重新更新 token 和 username
           localStorage.setItem("user", modelData);
+          localStorage.setItem("token", res.token);
           this.$store.dispatch('createUser',{userName:modelData})
           this.defaultName = true;
         })
