@@ -352,11 +352,7 @@ export default {
             icon: "success",
             message: "修改成功"
           });
-          document.cookie = `token=${res.token};max-age=${30 *
-            24 *
-            60 *
-            60 *
-            1000}`;
+
           //修改用户名后会重新更新 token 和 username
           localStorage.setItem("user", modelData);
           localStorage.setItem("token", res.token);

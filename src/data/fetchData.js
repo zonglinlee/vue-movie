@@ -4,6 +4,7 @@ export const url = 'http://vue.wclimb.site';
 let $axios = axios.create({
   baseURL: url + '/vi/',
 });
+
 function getCookie(name) {
   var arr,
     reg = new RegExp('(^| )' + name + '=([^;]*)(;|$)');
@@ -16,6 +17,7 @@ function getCookie(name) {
 }
 
 function $fetch(method, url, data) {
+  let token = localStorage.getItem('token')
   return new Promise((reslove, reject) => {
     $axios({
       method,
@@ -25,7 +27,8 @@ function $fetch(method, url, data) {
       //Access-Control-Allow-Headers 服务端需要配置这个？？(自定义请求头)
       //每次发送ajax请求的时候都会带上自定义请求头 token 
       headers: {
-        token: getCookie('token'),
+        // token: getCookie('token'),
+        token
       },
     })
       .then(res => {

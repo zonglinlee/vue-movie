@@ -100,12 +100,7 @@ export default {
             this.$store.dispatch("createUser", {
               userName: this.userName
             });
-            //记录cookie信息到document.cookie，30天过期
-            document.cookie = `token=${data.token};max-age=${30 *
-              24 *
-              60 *
-              60 *
-              1000}`;
+
             localStorage.setItem("user", this.userName);
             localStorage.setItem("token", data.token);
             localStorage.setItem("avator", data.avator);
@@ -118,11 +113,7 @@ export default {
                 this.$router.push({ path: "/me" });
               }
             });
-            document.cookie = `token=${data.token};max-age=${30 *
-              24 *
-              60 *
-              60 *
-              1000}`;
+
             this.$store.dispatch("createUser", {
               userName: this.userName
             });

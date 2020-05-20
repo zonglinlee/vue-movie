@@ -242,6 +242,7 @@ export default {
       // 获取评论
       await getVideoComment(routerId)
         .then(res => {
+          console.log(res)
           this.comments = res.data.slice(0, 5);
           this.pageNeedComments = res.data;
           this.commentLoad = "暂时没有相关评论.......";
